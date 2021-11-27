@@ -3,7 +3,9 @@ import { Typography } from '@mui/material';
 import FolderIcon from './Icons/folderIcon.png';
 import FileIcon from './Icons/fileIcon.png';
 import { useAppDispatch, useAppSelector } from 'renderer/app/hooks';
+import FileIcons from './FileIcon';
 const fs = window.require('fs');
+const shell = window.require('electron').shell;
 import { RootState } from 'renderer/app/store';
 import {
   changePath,
@@ -17,6 +19,7 @@ interface Props {
 }
 const FileDisplay = ({ filePath }: Props) => {
   console.log('FileDisplay.tsx');
+  const BaseName = path.basename(filePath);
   const stats = fs.statSync(filePath);
   const [aboutFile, setAboutFile] = useState('');
   useEffect(() => {
@@ -38,18 +41,13 @@ const FileDisplay = ({ filePath }: Props) => {
   const dispatch = useAppDispatch();
   const { selected } = useAppSelector((state: RootState) => state.fileManager);
   useEffect(() => {
-    let flag = false;
-    selected.forEach((element) => {
-      if (element === filePath) {
-        flag = true;
-        return;
-      }
-    });
-    setIsSelected(flag);
-  }, [selected]);
+    setIsSelected(selected.includes(filePath));
+  }, [selected, filePath]);
   const FileDoubleClickHandler = () => {
     if (stats.isDirectory()) {
       dispatch(changePath(filePath));
+    } else {
+      shell.openPath(filePath);
     }
   };
   const FileClickHandler = () => {
@@ -62,20 +60,23 @@ const FileDisplay = ({ filePath }: Props) => {
       onDoubleClick={FileDoubleClickHandler}
       onClick={FileClickHandler}
     >
-      <img
-        width="70px"
-        src={stats.isDirectory() ? FolderIcon : FileIcon}
-        alt="Icons"
+      <FileIcons
+        ext={path.extname(filePath)}
+        isDirectory={stats.isDirectory()}
       />
       <Typography
         color="#FFFFFF"
         textAlign="center"
         variant="subtitle2"
+        fontSize="12px"
+        marginTop="2px"
         style={{ wordWrap: 'break-word', width: '100%' }}
       >
         {path.basename(filePath).length > 15
-          ? path.basename(filePath).slice(0, 15) + '...'
-          : path.basename(filePath)}
+          ? path.basename(filePath).slice(0, 10) +
+            '...' +
+            BaseName.slice(BaseName.length - 7, BaseName.length)
+          : BaseName}
       </Typography>
       <Typography color="#5CCEFF" variant="caption">
         {aboutFile}

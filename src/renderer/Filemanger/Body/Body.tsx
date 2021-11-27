@@ -16,7 +16,10 @@ const Body = () => {
     fs.readdir(currPath, (_err: string, gotFiles: string[]) => {
       const filesArr: string[] = [];
       gotFiles.forEach((file: string) => {
-        if (path.basename(file)[0] !== '.') {
+        if (
+          path.basename(file)[0] !== '.' &&
+          path.basename(file) !== '$RECYCLE.BIN'
+        ) {
           filesArr.push(path.join(currPath, file));
         }
       });

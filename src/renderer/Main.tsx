@@ -6,16 +6,16 @@ import Header from './Filemanger/Header/Header';
 import Body from './Filemanger/Body/Body';
 const styles = {
   sidebar: {
-    backgroundColor: '#606060',
+    backgroundColor: 'rgb(59,59,59)',
     height: '100vh',
     minWidth: '300px',
   },
   header: {
-    backgroundColor: '#494949',
+    backgroundColor: 'rgb(42,42,42)',
     minHeight: '50px',
   },
   body: {
-    backgroundColor: '#414141',
+    backgroundColor: 'rgb(36,35,35)',
     height: '100vh',
     overflow: 'auto',
   },

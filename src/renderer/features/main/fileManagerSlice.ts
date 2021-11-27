@@ -3,11 +3,13 @@ import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 export interface MainState {
   currPath: string;
   selected: string[];
+  historyFwd: string[];
 }
 
 const initialState: MainState = {
   currPath: '/Users/birju/Desktop',
   selected: [],
+  historyFwd: [],
 };
 
 export const fileManagerSlice = createSlice({
@@ -16,6 +18,7 @@ export const fileManagerSlice = createSlice({
   reducers: {
     changePath: (state, action: PayloadAction<string>) => {
       state.currPath = action.payload;
+      state.selected = [];
     },
     select: (state, action: PayloadAction<string>) => {
       state.selected.push(action.payload);
@@ -31,11 +34,23 @@ export const fileManagerSlice = createSlice({
       state.selected = [];
       console.log(current(state));
     },
+    pathForwarded: (state) => {
+      state.historyFwd.pop();
+    },
+    pathBackwarded: (state) => {
+      state.historyFwd.push(state.currPath);
+    },
     // incrementByAmount: (state, action: PayloadAction<number>) => {
     //   state.value += action.payload;
     // },
   },
 });
-export const { changePath, select, deSelect, deSelectAll } =
-  fileManagerSlice.actions;
+export const {
+  changePath,
+  select,
+  deSelect,
+  deSelectAll,
+  pathForwarded,
+  pathBackwarded,
+} = fileManagerSlice.actions;
 export default fileManagerSlice.reducer;
