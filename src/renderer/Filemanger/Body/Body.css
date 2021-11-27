@@ -1,0 +1,10 @@
+#body-container {
+  display: flex;
+  /* justify-content: center; */
+  overflow: auto;
+}
+.body-files-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
