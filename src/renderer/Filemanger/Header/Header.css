@@ -19,17 +19,10 @@
   height: fit-content;
   padding: 2px 2px 2px 8px;
 }
-.header-fwd-btn-container:hover {
+.header-btn:hover {
   background-color: rgb(54, 54, 54);
   border-radius: 2px;
 }
-.header-back-btn-container:hover {
-  background-color: rgb(54, 54, 54);
-  border-radius: 2px;
-}
-.header-fwd-btn-container:active {
-  transform: scale(0.95);
-}
-.header-back-btn-container:active {
+.header-btn:active {
   transform: scale(0.95);
 }

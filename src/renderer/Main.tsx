@@ -1,14 +1,16 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Sidebar from './Filemanger/SideBar/Sidebar';
 import Header from './Filemanger/Header/Header';
 import Body from './Filemanger/Body/Body';
+const fs = window.require('fs');
 const styles = {
   sidebar: {
     backgroundColor: 'rgb(59,59,59)',
     height: '100vh',
     minWidth: '300px',
+    overflow: 'auto',
   },
   header: {
     backgroundColor: 'rgb(42,42,42)',
@@ -22,7 +24,25 @@ const styles = {
 };
 export default function Main(): ReactElement {
   console.log('Main.tsx');
-
+  useEffect(() => {
+    console.log('IN Data File Creater....');
+    fs.exists('fileManagerLocalData.js', function (exists: boolean) {
+      if (!exists) {
+        fs.writeFile(
+          'fileManagerLocalData.js',
+          'export default {};',
+          { flag: 'wx' },
+          function (err: string) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('fileManagerLocalData.js Successfuly Created....');
+            }
+          }
+        );
+      }
+    });
+  });
   return (
     <Box
       sx={{

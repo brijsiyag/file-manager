@@ -5,22 +5,24 @@ import CircleIcon from '@mui/icons-material/Circle';
 const styles = {
   tagItem: {
     marginTop: '9px',
-    fontSize: '22px',
+    fontSize: '15px',
     color: '#FFFFFF',
     cursor: 'default',
+    display: 'flex',
+    alignItems: 'center',
   },
   containerGrid: {
     marginTop: '3rem',
     marginLeft: '1.5rem',
   },
   heading: {
-    fontSize: '20px',
+    fontSize: '15px',
     fontWeight: 'bold',
     color: '#C0C0C0',
   },
   colorCircle: {
-    fontSize: '16px',
-    marginRight: '4px',
+    fontSize: '12px',
+    marginRight: '6px',
   },
 };
 

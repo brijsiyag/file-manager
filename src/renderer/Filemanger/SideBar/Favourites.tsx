@@ -26,7 +26,7 @@ const styles = {
     marginLeft: '1.5rem',
   },
   heading: {
-    fontSize: '20px',
+    fontSize: '15px',
     fontWeight: 'bold',
     color: '#C0C0C0',
   },

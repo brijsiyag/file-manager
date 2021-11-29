@@ -8,6 +8,7 @@ import {
   changePath,
   pathForwarded,
   pathBackwarded,
+  serachTexhChange,
 } from '../../features/main/fileManagerSlice';
 const path = window.require('path');
 const BackFwdBtns = ({
@@ -24,6 +25,7 @@ const BackFwdBtns = ({
     if (path.dirname(currPath) !== '/') {
       dispatch(pathBackwarded());
       dispatch(changePath(path.dirname(currPath)));
+      dispatch(serachTexhChange(''));
     }
   };
   const fwdBtnClickHandler = () => {
@@ -32,6 +34,7 @@ const BackFwdBtns = ({
       console.log(fwdPath);
       dispatch(changePath(fwdPath));
       dispatch(pathForwarded());
+      dispatch(serachTexhChange(''));
     }
   };
   return (
@@ -40,10 +43,16 @@ const BackFwdBtns = ({
       container
       className="header-back-fwd-btn-container"
     >
-      <div className="header-back-btn-container" onClick={backwdClickHandler}>
+      <div
+        className="header-back-btn-container header-btn"
+        onClick={backwdClickHandler}
+      >
         <ArrowBackIosIcon />
       </div>
-      <div className="header-fwd-btn-container" onClick={fwdBtnClickHandler}>
+      <div
+        className="header-fwd-btn-container header-btn"
+        onClick={fwdBtnClickHandler}
+      >
         <ArrowForwardIosIcon />
       </div>
     </Grid>

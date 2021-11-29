@@ -4,12 +4,18 @@ export interface MainState {
   currPath: string;
   selected: string[];
   historyFwd: string[];
+  view: string;
+  bodyForceRerenderer: boolean;
+  searchText: string;
 }
 
 const initialState: MainState = {
   currPath: '/Users/birju/Desktop',
   selected: [],
   historyFwd: [],
+  view: 'grid',
+  bodyForceRerenderer: true,
+  searchText: '',
 };
 
 export const fileManagerSlice = createSlice({
@@ -22,17 +28,15 @@ export const fileManagerSlice = createSlice({
     },
     select: (state, action: PayloadAction<string>) => {
       state.selected.push(action.payload);
-      console.log(current(state));
+      console.log(current(state.selected));
     },
     deSelect: (state, action: PayloadAction<string>) => {
       state.selected = current(state).selected.filter((element) => {
         return element !== action.payload;
       });
-      console.log(current(state));
     },
     deSelectAll: (state) => {
       state.selected = [];
-      console.log(current(state));
     },
     pathForwarded: (state) => {
       state.historyFwd.pop();
@@ -40,9 +44,16 @@ export const fileManagerSlice = createSlice({
     pathBackwarded: (state) => {
       state.historyFwd.push(state.currPath);
     },
-    // incrementByAmount: (state, action: PayloadAction<number>) => {
-    //   state.value += action.payload;
-    // },
+    changeView: (state, action: PayloadAction<string>) => {
+      state.view = action.payload;
+    },
+    bodyForceRerenderer: (state) => {
+      state.bodyForceRerenderer = !state.bodyForceRerenderer;
+      state.selected = [];
+    },
+    serachTexhChange: (state, action: PayloadAction<string>) => {
+      state.searchText = action.payload;
+    },
   },
 });
 export const {
@@ -52,5 +63,8 @@ export const {
   deSelectAll,
   pathForwarded,
   pathBackwarded,
+  changeView,
+  bodyForceRerenderer,
+  serachTexhChange,
 } = fileManagerSlice.actions;
 export default fileManagerSlice.reducer;
