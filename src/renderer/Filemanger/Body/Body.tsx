@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { hideMenu } from 'react-contextmenu';
 import { useAppSelector, useAppDispatch } from 'renderer/app/hooks';
 import { deSelectAll } from 'renderer/features/main/fileManagerSlice';
 import { RootState } from 'renderer/app/store';
@@ -32,7 +33,10 @@ const Body = () => {
       let fileCounter = 0;
       try {
         const walker = walk.sync(currPath, (file, stat) => {
-          if (path.basename(file).slice(0, searchText.length) === searchText) {
+          if (
+            path.basename(file).slice(0, searchText.length).toLowerCase() ===
+            searchText.toLowerCase()
+          ) {
             filesArr.push(file);
           }
           fileCounter++;
@@ -47,36 +51,47 @@ const Body = () => {
     }
     return () => {
       setFiles([]);
-      // finder.stop();
     };
   }, [currPath, bodyForceRerenderer, searchText]);
   const bodyClickHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
+    console.log(e.target);
+
     if (
       !(
         e.target.classList.contains('file-icon') ||
         e.target.classList.contains('file-name') ||
-        e.target.classList.contains('file-desc')
+        e.target.classList.contains('file-desc') ||
+        e.target.classList.contains('react-contextmenu-item') ||
+        e.target.classList.contains('react-context-menu')
       ) &&
       selected.length > 0
     ) {
       dispatch(deSelectAll());
     }
+    hideMenu();
   };
   return (
-    <div id="body-container" onClick={bodyClickHandler}>
+    <div
+      id="body-container"
+      style={{ minHeight: '90vh' }}
+      onClick={bodyClickHandler}
+    >
       <div
         className="body-files-container"
         style={{
           flexDirection: view == 'grid' ? 'row' : 'column',
           columnGap: view == 'grid' ? '25px' : '2px',
-          rowGap: view == 'grid' ? '25px' : '10px',
+          rowGap: view == 'grid' ? '25px' : '7px',
           margin: '20px',
+          height: 'fit-content',
         }}
       >
         {files.map((element) => {
-          return <Grid>{<Menu filePath={element} />}</Grid>;
+          return (
+            <Grid height="fit-content">{<Menu filePath={element} />}</Grid>
+          );
         })}
       </div>
     </div>

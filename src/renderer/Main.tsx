@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Sidebar from './Filemanger/SideBar/Sidebar';
 import Header from './Filemanger/Header/Header';
-import Body from './Filemanger/Body/Body';
+import BodyMenu from './Filemanger/Body/BodyMenu';
 const fs = window.require('fs');
 const styles = {
   sidebar: {
@@ -62,7 +62,7 @@ export default function Main(): ReactElement {
             <Header />
           </Grid>
           <Grid justifyContent="center" sx={styles.body}>
-            <Body />
+            <BodyMenu />
           </Grid>
         </Grid>
       </Grid>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RootState } from 'renderer/app/store';
 import { Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'renderer/app/hooks';
+import { hideMenu } from 'react-contextmenu/modules/actions';
 import FileIcons from './FileIcon';
 import {
   changePath,
@@ -14,11 +15,11 @@ const { shell } = window.require('electron');
 const path = window.require('path');
 interface Props {
   filePath: string;
+  stats: { any };
 }
-const FileDisplay = ({ filePath }: Props) => {
-  // console.log('FileDisplay.tsx');
+const FileDisplay = ({ filePath, stats }: Props) => {
+  console.log('FileDisplay.tsx');
   const BaseName = path.basename(filePath);
-  const stats = fs.statSync(filePath);
   const [aboutFile, setAboutFile] = useState('');
   const [isSelected, setIsSelected] = useState(false);
   const dispatch = useAppDispatch();
@@ -27,7 +28,17 @@ const FileDisplay = ({ filePath }: Props) => {
   );
   useEffect(() => {
     if (stats.isFile()) {
-      setAboutFile(parseFloat(stats.size / (1024 * 1024)).toFixed(2) + ' MB');
+      if (stats.size >= 1024 * 1024 * 1024) {
+        setAboutFile(
+          parseFloat(stats.size / (1024 * 1024 * 1024)).toFixed(2) + ' GB'
+        );
+      } else if (stats.size >= 1024 * 1024) {
+        setAboutFile(parseFloat(stats.size / (1024 * 1024)).toFixed(2) + ' MB');
+      } else if (stats.size > 1024) {
+        setAboutFile(parseFloat(stats.size / 1024).toFixed(2) + ' KB');
+      } else {
+        setAboutFile(parseFloat(stats.size).toFixed(2) + ' B');
+      }
     } else {
       fs.readdir(filePath, (err: string, dirStats: any[]) => {
         if (err) {
@@ -57,6 +68,7 @@ const FileDisplay = ({ filePath }: Props) => {
   const FileClickHandler = () => {
     isSelected ? dispatch(deSelect(filePath)) : dispatch(select(filePath));
     setIsSelected(!isSelected);
+    hideMenu();
   };
   return (
     <div
@@ -72,7 +84,7 @@ const FileDisplay = ({ filePath }: Props) => {
       <FileIcons
         ext={path.extname(filePath)}
         isDirectory={stats.isDirectory()}
-        view={view}
+        width={view === 'grid' ? '70px' : '15px'}
       />
       <div
         className="file-name"

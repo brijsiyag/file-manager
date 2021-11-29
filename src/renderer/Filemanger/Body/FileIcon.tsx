@@ -30,7 +30,7 @@ interface Props {
   isDirectory: boolean;
   view: string;
 }
-const FileIcon = ({ ext, isDirectory, view }: Props) => {
+const FileIcon = ({ ext, isDirectory, width }: Props) => {
   // console.log('FileIcon.tsx');
   let imgSrc;
   let imgPath;
@@ -119,12 +119,7 @@ const FileIcon = ({ ext, isDirectory, view }: Props) => {
   }
   return (
     <>
-      <img
-        className="file-icon"
-        width={view === 'grid' ? '70px' : '13px'}
-        src={imgSrc}
-        alt="Lala"
-      />
+      <img className="file-icon" width={width} src={imgSrc} alt="Lala" />
     </>
   );
 };

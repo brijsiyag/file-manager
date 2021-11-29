@@ -1,5 +1,5 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
-
+const { shell } = window.require('electron');
 export interface MainState {
   currPath: string;
   selected: string[];
@@ -7,15 +7,19 @@ export interface MainState {
   view: string;
   bodyForceRerenderer: boolean;
   searchText: string;
+  cutCopy: { type: string; arr: string[] };
+  infoPath: string;
 }
 
 const initialState: MainState = {
-  currPath: '/Users/birju/Desktop',
+  currPath: '/Users/birju/Desktop/FileManagerTest',
   selected: [],
   historyFwd: [],
   view: 'grid',
   bodyForceRerenderer: true,
   searchText: '',
+  cutCopy: { type: 'copy', arr: [] },
+  infoPath: '',
 };
 
 export const fileManagerSlice = createSlice({
@@ -29,6 +33,13 @@ export const fileManagerSlice = createSlice({
     select: (state, action: PayloadAction<string>) => {
       state.selected.push(action.payload);
       console.log(current(state.selected));
+    },
+    copyCutHandler: (state, action: PayloadAction<string>) => {
+      state.cutCopy = { type: action.payload, arr: state.selected };
+      state.selected = [];
+    },
+    pasted: (state) => {
+      state.cutCopy = { type: 'copy', arr: [] };
     },
     deSelect: (state, action: PayloadAction<string>) => {
       state.selected = current(state).selected.filter((element) => {
@@ -51,8 +62,26 @@ export const fileManagerSlice = createSlice({
       state.bodyForceRerenderer = !state.bodyForceRerenderer;
       state.selected = [];
     },
+    deleteAll: (state) => {
+      const newSelected = state.selected;
+      state.selected = [];
+      newSelected.forEach((element) => {
+        shell
+          .trashItem(element)
+          .then(() => {
+            return true;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+      state.bodyForceRerenderer = !state.bodyForceRerenderer;
+    },
     serachTexhChange: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
+    },
+    setInfoPath: (state, action: PayloadAction<string>) => {
+      state.infoPath = action.payload;
     },
   },
 });
@@ -66,5 +95,9 @@ export const {
   changeView,
   bodyForceRerenderer,
   serachTexhChange,
+  copyCutHandler,
+  pasted,
+  deleteAll,
+  setInfoPath,
 } = fileManagerSlice.actions;
 export default fileManagerSlice.reducer;

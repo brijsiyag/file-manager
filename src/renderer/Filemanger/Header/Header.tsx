@@ -10,8 +10,6 @@ import {
   changeView,
   serachTexhChange,
 } from 'renderer/features/main/fileManagerSlice';
-import NewFolder from './NewFolder';
-import DeleteFileFolder from './DeleteFileFolder';
 const path = window.require('path');
 import './Header.css';
 const Header = () => {
@@ -64,19 +62,6 @@ const Header = () => {
         >
           <GridViewIcon color="inherit" />
         </Box>
-      </Grid>
-      <Grid
-        display="flex"
-        marginLeft="80px"
-        width="100px"
-        justifyContent="space-around"
-      >
-        <Grid>
-          <NewFolder currPath={currPath} />
-        </Grid>
-        <Grid>
-          <DeleteFileFolder />
-        </Grid>
       </Grid>
       <Grid color="white" marginLeft="auto" marginRight="20px">
         <input
