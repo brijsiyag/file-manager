@@ -59,22 +59,7 @@ export const fileManagerSlice = createSlice({
       state.view = action.payload;
     },
     bodyForceRerenderer: (state) => {
-      state.bodyForceRerenderer = !state.bodyForceRerenderer;
       state.selected = [];
-    },
-    deleteAll: (state) => {
-      const newSelected = state.selected;
-      state.selected = [];
-      newSelected.forEach((element) => {
-        shell
-          .trashItem(element)
-          .then(() => {
-            return true;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
       state.bodyForceRerenderer = !state.bodyForceRerenderer;
     },
     serachTexhChange: (state, action: PayloadAction<string>) => {
@@ -97,7 +82,6 @@ export const {
   serachTexhChange,
   copyCutHandler,
   pasted,
-  deleteAll,
   setInfoPath,
 } = fileManagerSlice.actions;
 export default fileManagerSlice.reducer;

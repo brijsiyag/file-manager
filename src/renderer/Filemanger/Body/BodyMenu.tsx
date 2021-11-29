@@ -57,7 +57,7 @@ function BodyMenu() {
         console.log(err);
       }
     });
-    dispatch(pasted());
+    // dispatch(pasted());
     dispatch(bodyForceRerenderer());
   };
   return (

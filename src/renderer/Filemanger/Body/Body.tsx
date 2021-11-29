@@ -57,14 +57,14 @@ const Body = () => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     console.log(e.target);
-
+    //add below lines if don't want to trigger rerender on context menu click
+    //e.target.classList.contains('react-contextmenu-item') ||
+    //e.target.classList.contains('react-context-menu');
     if (
       !(
         e.target.classList.contains('file-icon') ||
         e.target.classList.contains('file-name') ||
-        e.target.classList.contains('file-desc') ||
-        e.target.classList.contains('react-contextmenu-item') ||
-        e.target.classList.contains('react-context-menu')
+        e.target.classList.contains('file-desc')
       ) &&
       selected.length > 0
     ) {

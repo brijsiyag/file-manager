@@ -32,18 +32,22 @@ function Menu({ filePath }: { filePath: string }) {
     dispatch(setInfoPath(filePath));
   };
   const deleteFileClickHandler = async () => {
-    selected.forEach((element) => {
+    selected.forEach((element: string) => {
       fs.stat(element, (err: string, stats) => {
         if (err) {
           console.log(err);
           return;
         }
-        if (stats.isDirectory()) {
-          fs.rmdirSync(element, { recursion: true });
-          console.log(`${element} Deleted Successfuly...`);
-        } else {
-          fs.unlinkSync(element);
-          console.log(`${element} Deleted Successfuly...`);
+        try {
+          if (stats.isDirectory()) {
+            fs.rmdirSync(element, { recursion: true });
+            console.log(`${element} Deleted Successfuly...`);
+          } else {
+            fs.unlinkSync(element);
+            console.log(`${element} Deleted Successfuly...`);
+          }
+        } catch (error) {
+          console.log(error);
         }
       });
     });
