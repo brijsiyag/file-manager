@@ -1,0 +1,17 @@
+.file-menu-container {
+  padding: 7px 10px;
+  min-width: 220px;
+  text-align: left;
+  border-radius: 5px;
+  color: white;
+  border: 1px solid gray;
+  background-color: rgb(54, 54, 54);
+}
+.file-menu-item {
+  padding: 2px 7px;
+  font-size: 13px;
+}
+.file-menu-item:hover {
+  background-color: rgb(51, 90, 204);
+  border-radius: 5px;
+}

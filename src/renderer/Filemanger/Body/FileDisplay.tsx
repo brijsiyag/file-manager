@@ -65,7 +65,6 @@ const FileDisplay = ({ filePath }: Props) => {
       style={{
         flexDirection: view === 'grid' ? 'column' : 'row',
         width: view === 'grid' ? '75px' : 'fit-content',
-        margin: view === 'grid' ? '25px' : '2px 10px',
         padding: view === 'grid' ? 'auto' : '2px 10px',
       }}
       onClick={FileClickHandler}

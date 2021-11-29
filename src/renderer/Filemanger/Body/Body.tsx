@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from 'renderer/app/hooks';
 import { deSelectAll } from 'renderer/features/main/fileManagerSlice';
 import { RootState } from 'renderer/app/store';
-import FileDisplay from './FileDisplay';
-const findit = window.require('findit2');
+import Menu from './Menu';
 const walk = window.require('walkdir');
 const fs = window.require('fs');
 const path = window.require('path');
@@ -31,27 +30,20 @@ const Body = () => {
       });
     } else {
       let fileCounter = 0;
-      const walker = walk.sync(currPath, (file, stat) => {
-        if (path.basename(file).slice(0, searchText.length) === searchText) {
-          filesArr.push(file);
-        }
-        fileCounter++;
-        if (fileCounter > 1000) {
-          walker.end();
-        }
-      });
+      try {
+        const walker = walk.sync(currPath, (file, stat) => {
+          if (path.basename(file).slice(0, searchText.length) === searchText) {
+            filesArr.push(file);
+          }
+          fileCounter++;
+          if (fileCounter > 10000) {
+            walker.end();
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
       setFiles(filesArr);
-      // const finder = findit(currPath);
-      // finder.on('path', (file: string) => {
-      //   fileCounter++;
-      // if (path.basename(file).includes(searchText)) {
-      //   filesArr.push(file);
-      // }
-      //   if (fileCounter > 500) {
-      //     finder.stop();
-      //     setFiles(filesArr);
-      //   }
-      // });
     }
     return () => {
       setFiles([]);
@@ -76,10 +68,15 @@ const Body = () => {
     <div id="body-container" onClick={bodyClickHandler}>
       <div
         className="body-files-container"
-        style={{ flexDirection: view == 'grid' ? 'row' : 'column' }}
+        style={{
+          flexDirection: view == 'grid' ? 'row' : 'column',
+          columnGap: view == 'grid' ? '25px' : '2px',
+          rowGap: view == 'grid' ? '25px' : '10px',
+          margin: '20px',
+        }}
       >
         {files.map((element) => {
-          return <Grid>{<FileDisplay filePath={element} />}</Grid>;
+          return <Grid>{<Menu filePath={element} />}</Grid>;
         })}
       </div>
     </div>

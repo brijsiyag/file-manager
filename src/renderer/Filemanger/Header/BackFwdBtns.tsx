@@ -41,6 +41,7 @@ const BackFwdBtns = ({
     <Grid
       width="fit-content"
       container
+      minWidth="fit-content"
       className="header-back-fwd-btn-container"
     >
       <div
