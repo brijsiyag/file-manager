@@ -33,7 +33,7 @@ export default function BasicModal() {
   const [info, setInfo] = useState({});
   const dispatch = useAppDispatch();
   React.useEffect(() => {
-    if (infoPath !== '') {
+    if (infoPath !== '' && infoPath !== undefined) {
       const stats = fs.statSync(infoPath);
       if (stats.size >= 1024 * 1024 * 1024) {
         stats.size = `${parseFloat(stats.size / (1024 * 1024 * 1024)).toFixed(

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FileIconPath from './FileIconPath';
 import Audio from './Icons/audio-file.png';
 import Text from './Icons/text.png';
@@ -25,98 +25,116 @@ import Docs from './Icons/google-docs.png';
 import FolderIcon from './Icons/folderIcon.png';
 import UnknownFileIcon from './Icons/fileIcon.png';
 import Compressed from './Icons/zip.png';
+const { ipcRenderer } = window.require('electron');
+const path = window.require('path');
 interface Props {
-  ext: string;
+  filePath: string;
   isDirectory: boolean;
   width: string;
+  ext: string;
 }
-const FileIcon = ({ ext, isDirectory, width }: Props) => {
+const FileIcon = ({ filePath, isDirectory, width, ext }: Props) => {
   // console.log('FileIcon.tsx');
-  let imgSrc;
-  let imgPath;
-  FileIconPath.forEach((element) => {
-    if (element.extList.includes(ext.toLowerCase())) {
-      imgPath = element.name;
+  const [imgSrc, setImgSrc] = useState('');
+  let imgPath: string;
+  // to get low quality macos native icons
+
+  // useEffect(() => {
+  //   if (!isDirectory) {
+  //     ipcRenderer.send('getFileIcon', { filePath: filePath });
+  //     ipcRenderer.on(`setFileIcon-${filePath}`, (event, data) => {
+  //       console.log(data);
+  //       setImgSrc(data);
+  //     });
+  //   } else {
+  //     setImgSrc(FolderIcon);
+  //   }
+  // }, []);
+  useEffect(() => {
+    FileIconPath.forEach((element) => {
+      if (element.extList.includes(ext.toLowerCase())) {
+        imgPath = element.name;
+      }
+    });
+    if (isDirectory) {
+      setImgSrc(FolderIcon);
+    } else {
+      switch (imgPath) {
+        case 'Audio':
+          setImgSrc(Audio);
+          break;
+        case 'Video':
+          setImgSrc(Video);
+          break;
+        case 'Text':
+          setImgSrc(Text);
+          break;
+        case 'DiskImage':
+          setImgSrc(DiskImage);
+          break;
+        case 'Database':
+          setImgSrc(Database);
+          break;
+        case 'Email':
+          setImgSrc(Email);
+          break;
+        case 'SysFiles':
+          setImgSrc(SysFiles);
+          break;
+        case 'Font':
+          setImgSrc(Font);
+          break;
+        case 'Image':
+          setImgSrc(Image);
+          break;
+        case 'InternetThings':
+          setImgSrc(InternetThings);
+          break;
+        case 'CLang':
+          setImgSrc(CLang);
+          break;
+        case 'CppLang':
+          setImgSrc(CppLang);
+          break;
+        case 'JavaLang':
+          setImgSrc(JavaLang);
+          break;
+        case 'JavaClass':
+          setImgSrc(JavaClass);
+          break;
+        case 'PythonLang':
+          setImgSrc(PythonLang);
+          break;
+        case 'Css':
+          setImgSrc(Css);
+          break;
+        case 'Html':
+          setImgSrc(Html);
+          break;
+        case 'Js':
+          setImgSrc(Js);
+          break;
+        case 'Ts':
+          setImgSrc(Ts);
+          break;
+        case 'Ppts':
+          setImgSrc(Ppts);
+          break;
+        case 'SpreedSheets':
+          setImgSrc(SpreedSheets);
+          break;
+        case 'Docs':
+          setImgSrc(Docs);
+          break;
+        case 'Compressed':
+          setImgSrc(Compressed);
+          break;
+        default:
+          setImgSrc(UnknownFileIcon);
+          break;
+      }
     }
-  });
-  if (isDirectory) {
-    imgSrc = FolderIcon;
-  } else {
-    switch (imgPath) {
-      case 'Audio':
-        imgSrc = Audio;
-        break;
-      case 'Video':
-        imgSrc = Video;
-        break;
-      case 'Text':
-        imgSrc = Text;
-        break;
-      case 'DiskImage':
-        imgSrc = DiskImage;
-        break;
-      case 'Database':
-        imgSrc = Database;
-        break;
-      case 'Email':
-        imgSrc = Email;
-        break;
-      case 'SysFiles':
-        imgSrc = SysFiles;
-        break;
-      case 'Font':
-        imgSrc = Font;
-        break;
-      case 'Image':
-        imgSrc = Image;
-        break;
-      case 'InternetThings':
-        imgSrc = InternetThings;
-        break;
-      case 'CLang':
-        imgSrc = CLang;
-        break;
-      case 'CppLang':
-        imgSrc = CppLang;
-        break;
-      case 'JavaLang':
-        imgSrc = JavaLang;
-        break;
-      case 'JavaClass':
-        imgSrc = JavaClass;
-        break;
-      case 'PythonLang':
-        imgSrc = PythonLang;
-        break;
-      case 'Css':
-        imgSrc = Css;
-        break;
-      case 'Html':
-        imgSrc = Html;
-        break;
-      case 'Js':
-        imgSrc = Js;
-        break;
-      case 'Ts':
-        imgSrc = Ts;
-        break;
-      case 'Ppts':
-        imgSrc = Ppts;
-        break;
-      case 'SpreedSheets':
-        imgSrc = SpreedSheets;
-        break;
-      case 'Docs':
-        imgSrc = Docs;
-        break;
-      case 'Compressed':
-        imgSrc = Compressed;
-        break;
-      default:
-        imgSrc = UnknownFileIcon;
-        break;
-    }
-  }
+  }, []);
   return (
     <>
       <img

@@ -121,6 +121,7 @@ const BodyItem = ({ filePath, stats }: Props) => {
   };
   return (
     <Draggable
+      disabled={view !== 'grid'}
       handle=".handle"
       defaultPosition={{ x: 0, y: 0 }}
       position={null}
@@ -137,18 +138,23 @@ const BodyItem = ({ filePath, stats }: Props) => {
           flexDirection: view === 'grid' ? 'column' : 'row',
           width: view === 'grid' ? '75px' : 'fit-content',
           padding: view === 'grid' ? 'auto' : '2px 10px',
+          backgroundColor: isSelected && view === 'list' ? 'rgb(55,55,55)' : '',
+          padding: '3px',
+          borderRadius: '5px',
         }}
         onClick={FileClickHandler}
       >
         <div
           style={{
             borderRadius: '3px',
-            backgroundColor: isSelected ? 'rgb(55,55,55)' : '',
+            backgroundColor:
+              isSelected && view === 'grid' ? 'rgb(55,55,55)' : '',
             padding: '3px',
           }}
         >
           <FileIcons
             ext={path.extname(filePath)}
+            filePath={filePath}
             isDirectory={stats.isDirectory()}
             width={view === 'grid' ? '70px' : '15px'}
           />
@@ -161,10 +167,11 @@ const BodyItem = ({ filePath, stats }: Props) => {
             fontSize: '12px',
             marginTop: '2px',
             wordWrap: 'break-word',
-            width: view === 'grid' ? '100%' : '200px',
+            width: view === 'grid' ? '90%' : '200px',
             textAlign: view === 'grid' ? 'center' : 'left',
             marginLeft: view === 'grid' ? 'auto' : '15px',
-            backgroundColor: isSelected ? 'rgb(50,89,204)' : '',
+            backgroundColor:
+              isSelected && view === 'grid' ? 'rgb(50,89,204)' : '',
             borderRadius: '3px',
             padding: '2px',
           }}

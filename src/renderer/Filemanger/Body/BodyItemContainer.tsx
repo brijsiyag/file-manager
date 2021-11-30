@@ -42,7 +42,6 @@ function BodyItemContainer({ filePath }: { filePath: string }) {
   const deleteFileClickHandler = async () => {
     selected.forEach((element: string) => {
       shell.trashItem(element);
-
       //use below functionality for permanent delete
 
       // fs.stat(element, (err: string, stats) => {
@@ -67,7 +66,7 @@ function BodyItemContainer({ filePath }: { filePath: string }) {
   };
   return (
     <div>
-      <ContextMenuTrigger id={filePath}>
+      <ContextMenuTrigger holdToDisplay="false" id={filePath}>
         {stats !== undefined && (
           <FileDisplay stats={stats} filePath={filePath} />
         )}

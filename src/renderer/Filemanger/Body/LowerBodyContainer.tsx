@@ -63,7 +63,7 @@ function LowerBodyContainer() {
   };
   return (
     <div>
-      <ContextMenuTrigger id="main-body-container">
+      <ContextMenuTrigger holdToDisplay="false" id="main-body-container">
         <LowerBody />
       </ContextMenuTrigger>
       <ContextMenu className="dir-menu-container" id="main-body-container">

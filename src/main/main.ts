@@ -108,6 +108,16 @@ const createWindow = async () => {
     event.preventDefault();
     shell.openExternal(url);
   });
+  ipcMain.on(
+    'getFileIcon',
+    async (event, { filePath }: { filePath: string }) => {
+      const imgData = await app.getFileIcon(filePath);
+      mainWindow?.webContents.send(
+        `setFileIcon-${filePath}`,
+        imgData.toDataURL()
+      );
+    }
+  );
 };
 
 /**

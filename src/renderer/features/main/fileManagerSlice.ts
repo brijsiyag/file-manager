@@ -75,6 +75,8 @@ export const fileManagerSlice = createSlice({
       state.searchText = action.payload;
     },
     setInfoPath: (state, action: PayloadAction<string>) => {
+      console.log(action.payload);
+
       state.infoPath = action.payload;
     },
     newTab: (state, action: PayloadAction<string>) => {
