@@ -56,7 +56,7 @@ npm run package
 - [x] Get Info of Current Directory, File or Folder
 - [x] Multiple Tabs
 - [x] Open Folder in New Tab
-- [x] Folder's Content's size in Get Info
+- [ ] Folder's Content's size in Get Info
 - [x] Drag and Drop Files and Folder for Position Change
 - [ ] Remember Filess and Folder's Position
 - [ ] Open Folder in new Terminal or Terminal Tab
