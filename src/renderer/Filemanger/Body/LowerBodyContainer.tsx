@@ -1,20 +1,19 @@
 import React from 'react';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import { useAppDispatch, useAppSelector } from 'renderer/app/hooks';
-import Body from './Body';
+import LowerBody from './LowerBody';
 import InfoModal from './InfoModal';
 import {
   bodyForceRerenderer,
   select,
-  pasted,
   setInfoPath,
 } from '../../features/main/fileManagerSlice';
 import { RootState } from 'renderer/app/store';
-import './BodyMenu.css';
+import './LowerBodyContainer.css';
 const fs = window.require('fs');
 const path = window.require('path');
 
-function BodyMenu() {
+function LowerBodyContainer() {
   const { currPath, cutCopy } = useAppSelector(
     (state: RootState) => state.fileManager
   );
@@ -42,6 +41,9 @@ function BodyMenu() {
       )
     );
   };
+  const logger = () => {
+    console.log('Logger Logged.......');
+  };
   const pasteClickHandler = () => {
     console.log('Here');
     cutCopy.arr.forEach((element) => {
@@ -57,30 +59,31 @@ function BodyMenu() {
         console.log(err);
       }
     });
-    // dispatch(pasted());
     dispatch(bodyForceRerenderer());
   };
   return (
     <div>
-      <ContextMenuTrigger id="main-body">
-        <Body />
+      <ContextMenuTrigger id="main-body-container">
+        <LowerBody />
       </ContextMenuTrigger>
-      <ContextMenu className="dir-menu-container" id="main-body">
+      <ContextMenu className="dir-menu-container" id="main-body-container">
         <MenuItem className="dir-menu-item" onClick={newFolderClickHandler}>
-          New Folder
+          New Folder{logger()}
         </MenuItem>
         <MenuItem className="dir-menu-item" onClick={getInfoClickHandler}>
           Get Info
         </MenuItem>
-        <hr style={{ borderColor: 'gray' }} />
         {cutCopy.arr.length > 0 && (
-          <MenuItem className="dir-menu-item" onClick={pasteClickHandler}>
-            Paste
-          </MenuItem>
+          <div>
+            <hr style={{ borderColor: 'gray' }} />
+            <MenuItem className="dir-menu-item" onClick={pasteClickHandler}>
+              Paste
+            </MenuItem>
+          </div>
         )}
       </ContextMenu>
       <InfoModal />
     </div>
   );
 }
-export default BodyMenu;
+export default LowerBodyContainer;

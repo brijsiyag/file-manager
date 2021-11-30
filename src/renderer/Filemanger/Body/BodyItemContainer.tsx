@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
-import FileDisplay from './FileDisplay';
+import FileDisplay from './BodyItem';
 import { useAppDispatch, useAppSelector } from 'renderer/app/hooks';
 import {
-  changePath,
   bodyForceRerenderer,
   copyCutHandler,
   select,
   setInfoPath,
+  newTab,
 } from '../../features/main/fileManagerSlice';
 import { RootState } from 'renderer/app/store';
 const fs = window.require('fs');
 const { shell } = window.require('electron');
 
-import './Menu.css';
-function Menu({ filePath }: { filePath: string }) {
+import './BodyItemContainer.css';
+import Draggable from 'react-draggable';
+function BodyItemContainer({ filePath }: { filePath: string }) {
   const { selected } = useAppSelector((state: RootState) => state.fileManager);
   const dispatch = useAppDispatch();
-  const stats = fs.statSync(filePath);
+  const [stats, setStats] = useState(undefined);
+  useEffect(() => {
+    const stats = fs.statSync(filePath);
+    setStats(stats);
+    return () => {
+      setStats({});
+    };
+  }, []);
   const openClickHandler = () => {
     if (stats.isDirectory()) {
-      dispatch(changePath(filePath));
+      dispatch(newTab(filePath));
     } else {
       shell.openPath(filePath);
     }
@@ -33,30 +41,36 @@ function Menu({ filePath }: { filePath: string }) {
   };
   const deleteFileClickHandler = async () => {
     selected.forEach((element: string) => {
-      fs.stat(element, (err: string, stats) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        try {
-          if (stats.isDirectory()) {
-            fs.rmdirSync(element, { recursion: true });
-            console.log(`${element} Deleted Successfuly...`);
-          } else {
-            fs.unlinkSync(element);
-            console.log(`${element} Deleted Successfuly...`);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      });
+      shell.trashItem(element);
+
+      //use below functionality for permanent delete
+
+      // fs.stat(element, (err: string, stats) => {
+      //   if (err) {
+      //     console.log(err);
+      //     return;
+      //   }
+      //   try {
+      //     if (stats.isDirectory()) {
+      //       fs.rmdirSync(element, { recursion: true });
+      //       console.log(`${element} Deleted Successfuly...`);
+      //     } else {
+      //       fs.unlinkSync(element);
+      //       console.log(`${element} Deleted Successfuly...`);
+      //     }
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // });
     });
     dispatch(bodyForceRerenderer());
   };
   return (
     <div>
       <ContextMenuTrigger id={filePath}>
-        <FileDisplay stats={stats} filePath={filePath} />
+        {stats !== undefined && (
+          <FileDisplay stats={stats} filePath={filePath} />
+        )}
       </ContextMenuTrigger>
       <ContextMenu
         className="file-menu-container"
@@ -66,7 +80,9 @@ function Menu({ filePath }: { filePath: string }) {
         }}
       >
         <MenuItem className="file-menu-item" onClick={openClickHandler}>
-          Open
+          {stats !== undefined && stats.isDirectory()
+            ? 'Open In New Tab'
+            : 'Open'}
         </MenuItem>
         <hr style={{ borderColor: 'gray' }} />
         <MenuItem className="file-menu-item" onClick={deleteFileClickHandler}>
@@ -96,7 +112,7 @@ function Menu({ filePath }: { filePath: string }) {
         >
           Copy
         </MenuItem>
-        {stats.isDirectory() && (
+        {stats !== undefined && stats.isDirectory() && (
           <div>
             <hr style={{ borderColor: 'gray' }} />
             <MenuItem className="file-menu-item" data={{ foo: 'bar' }}>
@@ -111,4 +127,4 @@ function Menu({ filePath }: { filePath: string }) {
     </div>
   );
 }
-export default Menu;
+export default BodyItemContainer;

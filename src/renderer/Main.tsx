@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Sidebar from './Filemanger/SideBar/Sidebar';
 import Header from './Filemanger/Header/Header';
-import BodyMenu from './Filemanger/Body/BodyMenu';
+import Body from './Filemanger/Body/Body';
 const fs = window.require('fs');
 const styles = {
   sidebar: {
@@ -45,6 +45,7 @@ export default function Main(): ReactElement {
   });
   return (
     <Box
+      className="file-manager-main-container"
       sx={{
         flexGrow: 1,
         margin: 0,
@@ -62,7 +63,7 @@ export default function Main(): ReactElement {
             <Header />
           </Grid>
           <Grid justifyContent="center" sx={styles.body}>
-            <BodyMenu />
+            <Body />
           </Grid>
         </Grid>
       </Grid>

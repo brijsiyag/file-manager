@@ -9,3 +9,15 @@
   background-color: rgba(167, 167, 167, 0.322);
   border-radius: 5px;
 }
+
+.file-name {
+  -webkit-appearance: none;
+  border: none;
+  appearance: none;
+  outline: 2px solid rgb(75, 94, 194);
+  width: 90% !important;
+  margin: auto;
+}
+.file-name:read-only {
+  outline: none;
+}

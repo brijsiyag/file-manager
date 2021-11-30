@@ -6,8 +6,11 @@
   color: white;
   border: 1px solid gray;
   background-color: rgb(54, 54, 54);
+  z-index: 1;
 }
 .file-menu-item {
+  transition: all 0.1s ease;
+  background-color: none;
   padding: 2px 7px;
   font-size: 13px;
 }

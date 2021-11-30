@@ -65,7 +65,7 @@ const Header = () => {
       </Grid>
       <Grid color="white" marginLeft="auto" marginRight="20px">
         <input
-          style={{ width: '200px' }}
+          className="header-search-bar"
           placeholder="Search"
           value={searchText}
           onChange={serachHandler}

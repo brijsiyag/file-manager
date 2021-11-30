@@ -25,6 +25,8 @@ const style = {
 };
 
 export default function BasicModal() {
+  console.log('InfoModal.tsx');
+
   const [open, setOpen] = React.useState(false);
   const { infoPath } = useAppSelector((state: RootState) => state.fileManager);
   const [items, setItems] = useState('');

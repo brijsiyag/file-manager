@@ -28,7 +28,7 @@ import Compressed from './Icons/zip.png';
 interface Props {
   ext: string;
   isDirectory: boolean;
-  view: string;
+  width: string;
 }
 const FileIcon = ({ ext, isDirectory, width }: Props) => {
   // console.log('FileIcon.tsx');
@@ -119,7 +119,15 @@ const FileIcon = ({ ext, isDirectory, width }: Props) => {
   }
   return (
     <>
-      <img className="file-icon" width={width} src={imgSrc} alt="Lala" />
+      <img
+        onDragStart={(e) => {
+          e.preventDefault();
+        }}
+        className="file-icon"
+        width={width}
+        src={imgSrc}
+        alt="Lala"
+      />
     </>
   );
 };

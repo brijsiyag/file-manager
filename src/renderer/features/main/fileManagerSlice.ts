@@ -1,5 +1,4 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
-const { shell } = window.require('electron');
 export interface MainState {
   currPath: string;
   selected: string[];
@@ -9,6 +8,7 @@ export interface MainState {
   searchText: string;
   cutCopy: { type: string; arr: string[] };
   infoPath: string;
+  tabs: string[];
 }
 
 const initialState: MainState = {
@@ -20,6 +20,7 @@ const initialState: MainState = {
   searchText: '',
   cutCopy: { type: 'copy', arr: [] },
   infoPath: '',
+  tabs: ['/Users/birju/Desktop/FileManagerTest'],
 };
 
 export const fileManagerSlice = createSlice({
@@ -27,6 +28,14 @@ export const fileManagerSlice = createSlice({
   initialState,
   reducers: {
     changePath: (state, action: PayloadAction<string>) => {
+      if (state.tabs.length > 1) {
+        state.tabs.forEach((element: string, index: number) => {
+          if (element === state.currPath) {
+            state.tabs[index] = action.payload;
+            return true;
+          }
+        });
+      }
       state.currPath = action.payload;
       state.selected = [];
     },
@@ -59,14 +68,23 @@ export const fileManagerSlice = createSlice({
       state.view = action.payload;
     },
     bodyForceRerenderer: (state) => {
-      state.selected = [];
       state.bodyForceRerenderer = !state.bodyForceRerenderer;
+      state.selected = [];
     },
     serachTexhChange: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
     },
     setInfoPath: (state, action: PayloadAction<string>) => {
       state.infoPath = action.payload;
+    },
+    newTab: (state, action: PayloadAction<string>) => {
+      state.tabs.push(action.payload);
+    },
+    tabClose: (state, action: PayloadAction<string>) => {
+      const index = state.tabs.indexOf(action.payload);
+      if (index > -1) {
+        state.tabs.splice(index, 1);
+      }
     },
   },
 });
@@ -83,5 +101,7 @@ export const {
   copyCutHandler,
   pasted,
   setInfoPath,
+  newTab,
+  tabClose,
 } = fileManagerSlice.actions;
 export default fileManagerSlice.reducer;

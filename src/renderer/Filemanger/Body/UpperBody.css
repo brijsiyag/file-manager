@@ -1,0 +1,57 @@
+.tabs-container {
+  display: flex;
+}
+.tabs-container .tab {
+  flex-grow: 1;
+  background-color: rgb(23, 23, 23);
+  height: 30px;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(42, 42, 42);
+  border-bottom: 1px solid rgb(23, 23, 23);
+  color: gray;
+  transition: all 0.3s ease;
+}
+.tabs-container .tab:hover {
+  background-color: rgb(37, 37, 37);
+}
+
+.tabs-container .tab-selected {
+  transition: all 0.3s ease;
+  color: white;
+  background-color: rgb(42, 42, 42);
+  box-shadow: inset gray -1px -1px 1px 0px, inset gray 1px -1px 1px 0px;
+}
+.tabs-container .tab-selected:hover {
+  background-color: rgb(42, 42, 42);
+}
+.add-tab {
+  max-width: 30px;
+  font-size: 25px !important;
+  color: gray !important;
+  font-weight: 100;
+}
+.tab-close-btn {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  background: none;
+  color: white;
+  border: none;
+  outline: inherit;
+  margin-left: 5px;
+  border-radius: 2px;
+}
+.tab-close-btn:hover {
+  background-color: rgba(128, 128, 128, 0.39);
+}
+.tab:hover .tab-close-btn {
+  visibility: visible;
+  opacity: 1;
+}
+.tab-heading {
+  flex-grow: 1;
+  text-align: center;
+}
