@@ -1,8 +1,7 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { ReactElement } from 'react';
-import { useAppDispatch } from 'renderer/app/hooks';
-import { changePath } from '../../features/main/fileManagerSlice';
+import { ReactElement, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'renderer/app/hooks';
 import UpdateIcon from '@mui/icons-material/Update';
 import DesktopMacIcon from '@mui/icons-material/DesktopMac';
 import AppsIcon from '@mui/icons-material/Apps';
@@ -11,11 +10,14 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import { changePath } from '../../features/main/fileManagerSlice';
+import { RootState } from 'renderer/app/store';
+import './Favourites.css';
 const os = window.require('os');
 const styles = {
   FavItem: {
-    marginTop: '9px',
     fontSize: '15px',
+    padding: '5px 7px',
     color: '#FFFFFF',
     cursor: 'default',
     display: 'flex',
@@ -31,12 +33,22 @@ const styles = {
     color: '#C0C0C0',
   },
 };
-
 function Favourites(): ReactElement {
-  console.log(Favourites.tsx);
-
+  const { currPath } = useAppSelector((state: RootState) => state.fileManager);
+  console.log('Favourites.tsx');
   const { username } = os.userInfo();
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    // document.querySelector('.selected-fav')?.classList.remove('selected-fav');
+  }, [currPath]);
+  const favClickHandler = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    clickedPath: string
+  ) => {
+    dispatch(changePath(clickedPath));
+    document.querySelector('.selected-fav')?.classList.remove('selected-fav');
+    (e.target as Element).classList.add('selected-fav');
+  };
   return (
     <Box>
       <Grid sx={styles.containerGrid}>
@@ -48,7 +60,7 @@ function Favourites(): ReactElement {
         <Grid
           sx={{
             marginTop: '10px',
-            marginLeft: '15px',
+            marginLeft: '7px',
           }}
         >
           <div>
@@ -62,8 +74,8 @@ function Favourites(): ReactElement {
             </Grid>
           </div>
           <div
-            onClick={() => {
-              dispatch(changePath(`/users/${username}/Desktop`));
+            onClick={(e) => {
+              favClickHandler(e, `/users/${username}/Desktop`);
             }}
           >
             <Grid sx={styles.FavItem}>
@@ -76,8 +88,8 @@ function Favourites(): ReactElement {
             </Grid>
           </div>
           <div
-            onClick={() => {
-              dispatch(changePath(`/Applications`));
+            onClick={(e) => {
+              favClickHandler(e, `/Applications`);
             }}
           >
             <Grid sx={styles.FavItem}>
@@ -90,8 +102,8 @@ function Favourites(): ReactElement {
             </Grid>
           </div>
           <div
-            onClick={() => {
-              dispatch(changePath(`/users/${username}/Documents`));
+            onClick={(e) => {
+              favClickHandler(e, `/users/${username}/Documents`);
             }}
           >
             <Grid sx={styles.FavItem}>
@@ -104,8 +116,8 @@ function Favourites(): ReactElement {
             </Grid>
           </div>
           <div
-            onClick={() => {
-              dispatch(changePath(`/users/${username}/Movies`));
+            onClick={(e) => {
+              favClickHandler(e, `/users/${username}/Movies`);
             }}
           >
             <Grid sx={styles.FavItem}>
@@ -118,8 +130,8 @@ function Favourites(): ReactElement {
             </Grid>
           </div>
           <div
-            onClick={() => {
-              dispatch(changePath(`/users/${username}/Music`));
+            onClick={(e) => {
+              favClickHandler(e, `/users/${username}/Music`);
             }}
           >
             <Grid sx={styles.FavItem}>
@@ -132,8 +144,8 @@ function Favourites(): ReactElement {
             </Grid>
           </div>
           <div
-            onClick={() => {
-              dispatch(changePath(`/users/${username}/Downloads`));
+            onClick={(e) => {
+              favClickHandler(e, `/users/${username}/Downloads`);
             }}
           >
             <Grid sx={styles.FavItem}>
@@ -146,8 +158,8 @@ function Favourites(): ReactElement {
             </Grid>
           </div>
           <div
-            onClick={() => {
-              dispatch(changePath(`/users/${username}/Pictures`));
+            onClick={(e) => {
+              favClickHandler(e, `/users/${username}/Pictures`);
             }}
           >
             <Grid sx={styles.FavItem}>

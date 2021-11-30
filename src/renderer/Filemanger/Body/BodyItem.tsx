@@ -155,6 +155,7 @@ const BodyItem = ({ filePath, stats }: Props) => {
         </div>
         <div
           className="file-name"
+          spellCheck="false"
           style={{
             color: '#FFFFFF',
             fontSize: '12px',

@@ -6,9 +6,11 @@ import { useAppDispatch, useAppSelector } from 'renderer/app/hooks';
 import { RootState } from 'renderer/app/store';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import GridViewIcon from '@mui/icons-material/GridView';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import {
   changeView,
   serachTexhChange,
+  bodyForceRerenderer,
 } from 'renderer/features/main/fileManagerSlice';
 const path = window.require('path');
 import './Header.css';
@@ -25,6 +27,9 @@ const Header = () => {
   const serachHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(serachTexhChange(e.target.value));
     setSearchText(e.target.value);
+  };
+  const RefreshClickHandler = () => {
+    dispatch(bodyForceRerenderer());
   };
   return (
     <Box minHeight="50px" display="flex" alignItems="center">
@@ -61,6 +66,17 @@ const Header = () => {
           className="header-btn"
         >
           <GridViewIcon color="inherit" />
+        </Box>
+      </Grid>
+      <Grid>
+        <Box
+          marginLeft="30px"
+          padding="3px"
+          color="white"
+          className="header-btn"
+          onClick={RefreshClickHandler}
+        >
+          <RefreshIcon />
         </Box>
       </Grid>
       <Grid color="white" marginLeft="auto" marginRight="20px">

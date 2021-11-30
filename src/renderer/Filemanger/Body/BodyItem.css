@@ -14,10 +14,11 @@
   -webkit-appearance: none;
   border: none;
   appearance: none;
-  outline: 2px solid rgb(75, 94, 194);
   width: 90% !important;
   margin: auto;
+  outline: 2px solid rgb(75, 94, 194);
 }
+
 .file-name:read-only {
   outline: none;
 }
