@@ -15,11 +15,13 @@ const styles = {
   header: {
     backgroundColor: 'rgb(42,42,42)',
     minHeight: '50px',
+    width: '100%',
   },
   body: {
     backgroundColor: 'rgb(36,35,35)',
     height: '100vh',
     overflow: 'auto',
+    display: 'flex',
   },
 };
 export default function Main(): ReactElement {
@@ -54,15 +56,15 @@ export default function Main(): ReactElement {
         overflow: 'hidden',
       }}
     >
-      <Grid container flexWrap="nowrap">
-        <Grid item sx={styles.sidebar}>
-          <Sidebar />
+      <Grid container flexWrap="wrap">
+        <Grid sx={styles.header}>
+          <Header />
         </Grid>
-        <Grid height="100vh" flexDirection="column" flexGrow="1">
-          <Grid sx={styles.header}>
-            <Header />
+        <Grid display="flex" height="100vh" width="100vw" flexWrap="nowrap">
+          <Grid item sx={styles.sidebar}>
+            <Sidebar />
           </Grid>
-          <Grid justifyContent="center" sx={styles.body}>
+          <Grid sx={styles.body} flexGrow="1">
             <Body />
           </Grid>
         </Grid>

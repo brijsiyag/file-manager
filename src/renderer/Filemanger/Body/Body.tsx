@@ -4,7 +4,7 @@ import LowerBodyContainer from './FilesFolders/BodyContainer';
 import UpperBodyContainer from './Tabs/TabsContainer';
 const Body = () => {
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <UpperBodyContainer />
       <LowerBodyContainer />
     </div>

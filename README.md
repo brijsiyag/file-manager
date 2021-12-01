@@ -62,3 +62,5 @@ npm run package
 - [ ] Open Folder in new Terminal or Terminal Tab
 - [ ] Cut or Copy Progress
 - [ ] Delete Progress
+- [ ] External Devices Support
+- [ ] Os's Context Menu Add
