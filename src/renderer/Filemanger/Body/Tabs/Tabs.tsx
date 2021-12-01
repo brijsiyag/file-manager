@@ -3,11 +3,11 @@ import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import { useAppDispatch } from 'renderer/app/hooks';
 import {
-  changePath,
+  tabOpen,
   tabClose,
   newTab,
-} from '../../features/main/fileManagerSlice';
-import './UpperBody.css';
+} from '../../../features/main/fileManagerSlice';
+import './Tabs.css';
 const path = window.require('path');
 const UpperBody = ({
   tabs,
@@ -29,7 +29,7 @@ const UpperBody = ({
     ) {
       document.querySelector('.tab-selected')?.classList.remove('tab-selected');
       document.getElementById(id)?.classList.add('tab-selected');
-      dispatch(changePath(tabPath));
+      dispatch(tabOpen(tabPath));
     }
   };
   const addTabClickHandler = () => {

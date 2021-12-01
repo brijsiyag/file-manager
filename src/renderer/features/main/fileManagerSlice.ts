@@ -29,15 +29,24 @@ export const fileManagerSlice = createSlice({
   reducers: {
     changePath: (state, action: PayloadAction<string>) => {
       if (state.tabs.length > 1) {
-        state.tabs.forEach((element: string, index: number) => {
-          if (element === state.currPath) {
-            state.tabs[index] = action.payload;
-            return true;
+        if (state.tabs.includes(action.payload)) {
+          state.currPath = action.payload;
+          state.selected = [];
+        } else {
+          for (let index = 0; index < state.tabs.length; index += 1) {
+            const element = state.tabs[index];
+            if (element === state.currPath) {
+              state.tabs[index] = action.payload;
+              state.currPath = state.tabs[index];
+              state.selected = [];
+              break;
+            }
           }
-        });
+        }
+      } else {
+        state.currPath = action.payload;
+        state.selected = [];
       }
-      state.currPath = action.payload;
-      state.selected = [];
     },
     select: (state, action: PayloadAction<string>) => {
       state.selected.push(action.payload);
@@ -80,7 +89,15 @@ export const fileManagerSlice = createSlice({
       state.infoPath = action.payload;
     },
     newTab: (state, action: PayloadAction<string>) => {
-      state.tabs.push(action.payload);
+      if (state.tabs.includes(action.payload)) {
+        state.currPath = action.payload;
+      } else {
+        state.tabs.push(action.payload);
+      }
+    },
+    tabOpen: (state, action: PayloadAction<string>) => {
+      state.currPath = action.payload;
+      state.selected = [];
     },
     tabClose: (state, action: PayloadAction<string>) => {
       const index = state.tabs.indexOf(action.payload);
@@ -105,5 +122,6 @@ export const {
   setInfoPath,
   newTab,
   tabClose,
+  tabOpen,
 } = fileManagerSlice.actions;
 export default fileManagerSlice.reducer;

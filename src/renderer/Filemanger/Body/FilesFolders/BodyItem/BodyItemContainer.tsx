@@ -8,7 +8,7 @@ import {
   select,
   setInfoPath,
   newTab,
-} from '../../features/main/fileManagerSlice';
+} from '../../../../features/main/fileManagerSlice';
 import { RootState } from 'renderer/app/store';
 const fs = window.require('fs');
 const { shell } = window.require('electron');

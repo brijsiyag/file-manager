@@ -4,7 +4,7 @@ import { hideMenu } from 'react-contextmenu';
 import { useAppSelector, useAppDispatch } from 'renderer/app/hooks';
 import { deSelectAll } from 'renderer/features/main/fileManagerSlice';
 import { RootState } from 'renderer/app/store';
-import Menu from './BodyItemContainer';
+import Menu from './BodyItem/BodyItemContainer';
 const walk = window.require('walkdir');
 const fs = window.require('fs');
 const path = window.require('path');

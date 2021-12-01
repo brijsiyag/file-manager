@@ -1,15 +1,15 @@
 import React from 'react';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import { useAppDispatch, useAppSelector } from 'renderer/app/hooks';
-import LowerBody from './LowerBody';
-import InfoModal from './InfoModal';
+import LowerBody from './Body';
+import InfoModal from './ItemInfo/InfoModal';
 import {
   bodyForceRerenderer,
   select,
   setInfoPath,
-} from '../../features/main/fileManagerSlice';
+} from '../../../features/main/fileManagerSlice';
 import { RootState } from 'renderer/app/store';
-import './LowerBodyContainer.css';
+import './BodyContainer.css';
 const fs = window.require('fs');
 const path = window.require('path');
 

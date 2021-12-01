@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from 'renderer/app/hooks';
 import { RootState } from 'renderer/app/store';
 import { setInfoPath } from 'renderer/features/main/fileManagerSlice';
 import { useState } from 'react';
-import FileIcons from './FileIcon';
+import FileIcons from '../BodyItem/FileIcon';
 const fs = window.require('fs');
 const path = window.require('path');
 const style = {

@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 import React from 'react';
-import UpperBody from './UpperBody';
+import UpperBody from './Tabs';
 import { useAppSelector } from 'renderer/app/hooks';
 import { RootState } from 'renderer/app/store';
 

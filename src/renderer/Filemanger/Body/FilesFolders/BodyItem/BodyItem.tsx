@@ -10,7 +10,7 @@ import {
   deSelect,
   deSelectAll,
   bodyForceRerenderer,
-} from '../../features/main/fileManagerSlice';
+} from '../../../../features/main/fileManagerSlice';
 import FileIcons from './FileIcon';
 import Draggable from 'react-draggable';
 const fs = window.require('fs');
