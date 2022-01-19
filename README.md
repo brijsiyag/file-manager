@@ -9,7 +9,7 @@
 
 ## Install
 
-First, clone the repo via git and install dependencies:
+First clone the repo or download code as zip and install dependencies:
 
 ```bash
 git clone https://github.com/brijsiyag/file-manager.git
