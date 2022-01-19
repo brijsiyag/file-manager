@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2021",
     "module": "commonjs",
-    "lib": ["dom", "esnext","es6"],
+    "lib": ["dom", "esnext", "es6"],
     "declaration": true,
     "declarationMap": true,
     "jsx": "react-jsx",
@@ -24,7 +24,8 @@
     "outDir": "release/app/dist",
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "typeRoots": ["./node_modules/@types"]
   },
   "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
 }

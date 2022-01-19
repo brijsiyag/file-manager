@@ -9,6 +9,7 @@ const walk = window.require('walkdir');
 const fs = window.require('fs');
 const path = window.require('path');
 import './Body.css';
+
 const Body = () => {
   console.log('Body.tsx');
   const [files, setFiles] = useState<string[]>([]);
@@ -17,9 +18,10 @@ const Body = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     const filesArr: string[] = [];
+    // No search Text..
     if (searchText === '') {
       fs.readdir(currPath, (_err: string, gotFiles: string[]) => {
-        gotFiles.forEach((file: string) => {
+        gotFiles?.forEach((file: string) => {
           if (
             path.basename(file)[0] !== '.' &&
             path.basename(file) !== '$RECYCLE.BIN'
@@ -30,9 +32,10 @@ const Body = () => {
         setFiles(filesArr);
       });
     } else {
+      //Searching For files
       let fileCounter = 0;
       try {
-        const walker = walk.sync(currPath, (file, stat) => {
+        const walker = walk.sync(currPath, (file: string, stat: any) => {
           if (
             path.basename(file).slice(0, searchText.length).toLowerCase() ===
             searchText.toLowerCase()
@@ -75,7 +78,7 @@ const Body = () => {
     <div
       id="body-container"
       style={{ minHeight: '90vh' }}
-      onClick={bodyClickHandler}
+      onClick={(e) => bodyClickHandler(e)}
     >
       <div
         className="body-files-container"

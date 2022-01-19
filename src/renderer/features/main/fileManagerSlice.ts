@@ -1,4 +1,5 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+
 export interface MainState {
   currPath: string;
   selected: string[];
@@ -10,9 +11,8 @@ export interface MainState {
   infoPath: string;
   tabs: string[];
 }
-
 const initialState: MainState = {
-  currPath: '/Users/birju/Desktop/FileManagerTest',
+  currPath: '/Users/birju/Desktop/',
   selected: [],
   historyFwd: [],
   view: 'grid',
@@ -50,7 +50,6 @@ export const fileManagerSlice = createSlice({
     },
     select: (state, action: PayloadAction<string>) => {
       state.selected.push(action.payload);
-      console.log(current(state.selected));
     },
     copyCutHandler: (state, action: PayloadAction<string>) => {
       state.cutCopy = { type: action.payload, arr: state.selected };

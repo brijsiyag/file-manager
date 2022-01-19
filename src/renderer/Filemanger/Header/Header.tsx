@@ -33,7 +33,7 @@ const Header = () => {
   };
   return (
     <Box minHeight="50px" display="flex" alignItems="center">
-      <Grid display="flex" alignItems="center">
+      <Grid display="flex" alignItems="center" width="300px">
         <BackFwdBtns currPath={currPath} historyFwd={historyFwd} />
         <Typography
           marginLeft="10px"

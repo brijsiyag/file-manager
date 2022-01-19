@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'renderer/app/hooks';
 import { hideMenu } from 'react-contextmenu/modules/actions';
 import './BodyItem.css';
+import Draggable from 'react-draggable';
 import {
   changePath,
   select,
@@ -12,7 +13,7 @@ import {
   bodyForceRerenderer,
 } from '../../../../features/main/fileManagerSlice';
 import FileIcons from './FileIcon';
-import Draggable from 'react-draggable';
+
 const fs = window.require('fs');
 const { shell } = window.require('electron');
 const path = window.require('path');
