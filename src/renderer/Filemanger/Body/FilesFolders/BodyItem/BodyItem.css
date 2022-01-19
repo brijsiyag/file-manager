@@ -1,13 +1,20 @@
-.folder-display {
+.file-display {
   display: flex;
   justify-content: center !important;
   align-items: center !important;
   flex-wrap: nowrap;
   flex-grow: 1;
 }
-.file-selected-grid {
-  background-color: rgba(167, 167, 167, 0.322);
-  border-radius: 5px;
+
+.file-selected-grid.file-selected-list {
+  background-color: rgb(55, 55, 55);
+}
+
+.file-selected-grid .icon-container {
+  background-color: rgb(55, 55, 55);
+}
+.file-selected-grid .file-name {
+  background-color: rgb(50, 89, 204);
 }
 
 .file-name {

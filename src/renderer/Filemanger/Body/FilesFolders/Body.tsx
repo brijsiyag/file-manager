@@ -4,6 +4,7 @@ import { hideMenu } from 'react-contextmenu';
 import { useAppSelector, useAppDispatch } from 'renderer/app/hooks';
 import { deSelectAll } from 'renderer/features/main/fileManagerSlice';
 import { RootState } from 'renderer/app/store';
+import SelectoComponent from './SelectoComponent';
 import Menu from './BodyItem/BodyItemContainer';
 const walk = window.require('walkdir');
 const fs = window.require('fs');
@@ -11,7 +12,7 @@ const path = window.require('path');
 import './Body.css';
 
 const Body = () => {
-  console.log('Body.tsx');
+  // console.log('Body.tsx');
   const [files, setFiles] = useState<string[]>([]);
   const { currPath, view, bodyForceRerenderer, searchText, selected } =
     useAppSelector((state: RootState) => state.fileManager);
@@ -64,9 +65,9 @@ const Body = () => {
     //e.target.classList.contains('react-context-menu');
     if (
       !(
-        e.target.classList.contains('file-icon') ||
-        e.target.classList.contains('file-name') ||
-        e.target.classList.contains('file-desc')
+        (e.target as Element).classList.contains('file-icon') ||
+        (e.target as Element).classList.contains('file-name') ||
+        (e.target as Element).classList.contains('file-desc')
       ) &&
       selected.length > 0
     ) {
@@ -78,8 +79,9 @@ const Body = () => {
     <div
       id="body-container"
       style={{ minHeight: '90vh' }}
-      onClick={(e) => bodyClickHandler(e)}
+      // onMouseDown={(e) => bodyClickHandler(e)}
     >
+      <SelectoComponent />
       <div
         className="body-files-container"
         style={{

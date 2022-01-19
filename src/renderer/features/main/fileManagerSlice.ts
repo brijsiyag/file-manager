@@ -51,17 +51,20 @@ export const fileManagerSlice = createSlice({
     select: (state, action: PayloadAction<string>) => {
       state.selected.push(action.payload);
     },
+    deSelect: (state, action: PayloadAction<string>) => {
+      state.selected = current(state).selected.filter((element) => {
+        return element !== action.payload;
+      });
+    },
+    updateSelection: (state, action: PayloadAction<string[]>) => {
+      state.selected = action.payload;
+    },
     copyCutHandler: (state, action: PayloadAction<string>) => {
       state.cutCopy = { type: action.payload, arr: state.selected };
       state.selected = [];
     },
     pasted: (state) => {
       state.cutCopy = { type: 'copy', arr: [] };
-    },
-    deSelect: (state, action: PayloadAction<string>) => {
-      state.selected = current(state).selected.filter((element) => {
-        return element !== action.payload;
-      });
     },
     deSelectAll: (state) => {
       state.selected = [];
@@ -83,8 +86,6 @@ export const fileManagerSlice = createSlice({
       state.searchText = action.payload;
     },
     setInfoPath: (state, action: PayloadAction<string>) => {
-      console.log(action.payload);
-
       state.infoPath = action.payload;
     },
     newTab: (state, action: PayloadAction<string>) => {
@@ -111,6 +112,7 @@ export const {
   select,
   deSelect,
   deSelectAll,
+  updateSelection,
   pathForwarded,
   pathBackwarded,
   changeView,

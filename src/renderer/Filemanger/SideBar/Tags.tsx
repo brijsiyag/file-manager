@@ -27,7 +27,7 @@ const styles = {
 };
 
 const Tags = () => {
-  console.log('Tags.tsx');
+  // console.log('Tags.tsx');
 
   return (
     <Box>

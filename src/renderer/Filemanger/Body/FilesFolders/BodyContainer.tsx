@@ -41,14 +41,8 @@ function LowerBodyContainer() {
       )
     );
   };
-  const logger = () => {
-    console.log('Logger Logged.......');
-  };
   const pasteClickHandler = () => {
-    console.log('Here');
     cutCopy.arr.forEach((element) => {
-      console.log(element);
-      console.log(`${currPath}/${path.basename(element)}`);
       try {
         fs.copyFileSync(
           element,
@@ -68,7 +62,7 @@ function LowerBodyContainer() {
       </ContextMenuTrigger>
       <ContextMenu className="dir-menu-container" id="main-body-container">
         <MenuItem className="dir-menu-item" onClick={newFolderClickHandler}>
-          New Folder{logger()}
+          New Folder
         </MenuItem>
         <MenuItem className="dir-menu-item" onClick={getInfoClickHandler}>
           Get Info

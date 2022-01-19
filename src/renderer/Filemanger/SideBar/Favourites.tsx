@@ -35,7 +35,7 @@ const styles = {
 };
 function Favourites(): ReactElement {
   const { currPath } = useAppSelector((state: RootState) => state.fileManager);
-  console.log('Favourites.tsx');
+  // console.log('Favourites.tsx');
   const { username } = os.userInfo();
   const dispatch = useAppDispatch();
   useEffect(() => {

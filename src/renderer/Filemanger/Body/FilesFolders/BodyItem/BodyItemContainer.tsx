@@ -14,7 +14,6 @@ const fs = window.require('fs');
 const { shell } = window.require('electron');
 
 import './BodyItemContainer.css';
-import Draggable from 'react-draggable';
 function BodyItemContainer({ filePath }: { filePath: string }) {
   const { selected } = useAppSelector((state: RootState) => state.fileManager);
   const dispatch = useAppDispatch();

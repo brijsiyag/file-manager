@@ -18,7 +18,7 @@ const BackFwdBtns = ({
   currPath: string;
   historyFwd: string[];
 }) => {
-  console.log('BackFwdBtns.tsx');
+  // console.log('BackFwdBtns.tsx');
 
   const dispatch = useAppDispatch();
   const backwdClickHandler = () => {
@@ -31,7 +31,7 @@ const BackFwdBtns = ({
   const fwdBtnClickHandler = () => {
     if (historyFwd.length > 0) {
       const fwdPath = historyFwd[historyFwd.length - 1];
-      console.log(fwdPath);
+      // console.log(fwdPath);
       dispatch(changePath(fwdPath));
       dispatch(pathForwarded());
       dispatch(serachTexhChange(''));

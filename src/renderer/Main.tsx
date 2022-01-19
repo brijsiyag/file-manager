@@ -25,7 +25,7 @@ const styles = {
   },
 };
 export default function Main(): ReactElement {
-  console.log('Main.tsx');
+  // console.log('Main.tsx');
   useEffect(() => {
     console.log('IN Data File Creater....');
     fs.exists('fileManagerLocalData.js', function (exists: boolean) {

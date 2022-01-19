@@ -25,7 +25,7 @@ const style = {
 };
 
 export default function BasicModal() {
-  console.log('InfoModal.tsx');
+  // console.log('InfoModal.tsx');
 
   const [open, setOpen] = React.useState(false);
   const { infoPath } = useAppSelector((state: RootState) => state.fileManager);
@@ -59,7 +59,7 @@ export default function BasicModal() {
       stats.isDir = stats.isDirectory();
       setInfo(stats);
       setOpen(true);
-      console.log(info);
+      // console.log(info);
     }
     return () => {
       setOpen(false);

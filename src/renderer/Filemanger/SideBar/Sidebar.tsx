@@ -6,7 +6,7 @@ import Tags from './Tags';
 interface Props {}
 
 const Sidebar = (props: Props) => {
-  console.log('Sidebar.tsx');
+  // console.log('Sidebar.tsx');
 
   return (
     <Box>

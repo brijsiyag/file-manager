@@ -15,7 +15,7 @@ import {
 const path = window.require('path');
 import './Header.css';
 const Header = () => {
-  console.log('Header.tsx');
+  // console.log('Header.tsx');
   const dispatch = useAppDispatch();
   const [searchText, setSearchText] = useState('');
   const { currPath, historyFwd } = useAppSelector((state: RootState) => {

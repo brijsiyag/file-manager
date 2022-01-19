@@ -47,7 +47,7 @@ const BodyItem = ({ filePath, stats }: Props) => {
     } else {
       fs.readdir(filePath, (err: string, dirStats: any[]) => {
         if (err) {
-          console.log(err);
+          // console.log(err);
           setAboutFile(err.code);
         } else {
           setAboutFile(dirStats.length + ' items');
@@ -101,7 +101,7 @@ const BodyItem = ({ filePath, stats }: Props) => {
             `${path.dirname(filePath)}/${(e.target as Element).innerHTML}`,
             (err: string) => {
               if (err) {
-                console.log(err);
+                // console.log(err);
               } else {
                 (e.target as Element).setAttribute('contentEditable', 'false');
                 // remove click eventListener otherwise it will rerender page everytime after file name changed
@@ -114,81 +114,82 @@ const BodyItem = ({ filePath, stats }: Props) => {
       };
       document.addEventListener('click', handleClickEvent, true);
     } else {
-      dispatch(deSelectAll());
-      isSelected ? dispatch(deSelect(filePath)) : dispatch(select(filePath));
-      setIsSelected(!isSelected);
+      // dispatch(deSelectAll());
+      // isSelected ? dispatch(deSelect(filePath)) : dispatch(select(filePath));
+      // setIsSelected(!isSelected);
     }
     hideMenu();
   };
   return (
-    <Draggable
-      disabled={view !== 'grid'}
-      handle=".handle"
-      defaultPosition={{ x: 0, y: 0 }}
-      position={null}
-      grid={[1, 1]}
-      scale={1}
-      onStart={this.handleStart}
-      onDrag={this.handleDrag}
-      onStop={this.handleStop}
-    >
-      <div
-        className="folder-display handle"
-        onDoubleClick={FileDoubleClickHandler}
-        style={{
-          flexDirection: view === 'grid' ? 'column' : 'row',
-          width: view === 'grid' ? '75px' : 'fit-content',
-          padding: view === 'grid' ? 'auto' : '2px 10px',
-          backgroundColor: isSelected && view === 'list' ? 'rgb(55,55,55)' : '',
-          padding: '3px',
-          borderRadius: '5px',
-        }}
-        onClick={FileClickHandler}
+    <>
+      <Draggable
+        disabled={view !== 'grid'}
+        handle=".handle"
+        defaultPosition={{ x: 0, y: 0 }}
+        position={null}
+        grid={[2, 2]}
+        scale={1}
       >
-        <div
-          style={{
-            borderRadius: '3px',
-            backgroundColor:
-              isSelected && view === 'grid' ? 'rgb(55,55,55)' : '',
-            padding: '3px',
-          }}
-        >
-          <FileIcons
-            ext={path.extname(filePath)}
-            filePath={filePath}
-            isDirectory={stats.isDirectory()}
-            width={view === 'grid' ? '70px' : '15px'}
-          />
+        <div className="selecto-area">
+          <div
+            className={`file-display handle ${
+              view === 'list' ? 'file-selected-list' : ''
+            }`}
+            onDoubleClick={FileDoubleClickHandler}
+            id={filePath}
+            style={{
+              flexDirection: view === 'grid' ? 'column' : 'row',
+              width: view === 'grid' ? '75px' : 'fit-content',
+              padding: view === 'grid' ? 'auto' : '2px 10px',
+              backgroundColor: view === 'row' ? 'rgb(55, 55, 55)' : '',
+              padding: '3px',
+              borderRadius: '5px',
+            }}
+            onClick={FileClickHandler}
+          >
+            <div
+              className="icon-container"
+              style={{
+                borderRadius: '3px',
+                padding: '3px',
+              }}
+            >
+              <FileIcons
+                ext={path.extname(filePath)}
+                filePath={filePath}
+                isDirectory={stats.isDirectory()}
+                width={view === 'grid' ? '70px' : '15px'}
+              />
+            </div>
+            <div
+              className={view === 'grid' ? 'file-name' : ''}
+              spellCheck="false"
+              style={{
+                color: '#FFFFFF',
+                fontSize: '12px',
+                marginTop: '2px',
+                wordWrap: 'break-word',
+                width: view === 'grid' ? '90%' : '200px',
+                textAlign: view === 'grid' ? 'center' : 'left',
+                marginLeft: view === 'grid' ? 'auto' : '15px',
+                borderRadius: '3px',
+                padding: '2px',
+              }}
+            >
+              {fileName}
+            </div>
+            <Typography
+              className="file-desc"
+              color="#5CCEFF"
+              variant="caption"
+              width={view === 'grid' ? 'fit-content' : '100px'}
+            >
+              {aboutFile}
+            </Typography>
+          </div>
         </div>
-        <div
-          className="file-name"
-          spellCheck="false"
-          style={{
-            color: '#FFFFFF',
-            fontSize: '12px',
-            marginTop: '2px',
-            wordWrap: 'break-word',
-            width: view === 'grid' ? '90%' : '200px',
-            textAlign: view === 'grid' ? 'center' : 'left',
-            marginLeft: view === 'grid' ? 'auto' : '15px',
-            backgroundColor:
-              isSelected && view === 'grid' ? 'rgb(50,89,204)' : '',
-            borderRadius: '3px',
-            padding: '2px',
-          }}
-        >
-          {fileName}
-        </div>
-        <Typography
-          className="file-desc"
-          color="#5CCEFF"
-          variant="caption"
-          width={view === 'grid' ? 'fit-content' : '100px'}
-        >
-          {aboutFile}
-        </Typography>
-      </div>
-    </Draggable>
+      </Draggable>
+    </>
   );
 };
 
