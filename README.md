@@ -42,6 +42,7 @@ npm run package
 - [x] Favourites Section in Sidebar
 - [ ] Recent Files
 - [ ] Tags Section Functionality in Sidebar
+- [x] Drag and Select Files
 - [x] Grid or List View
 - [ ] Sort Functions
 - [x] Search Files or Folder
