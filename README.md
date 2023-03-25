@@ -33,6 +33,12 @@ To package apps for the local platform:
 npm run package
 ```
 
+### Screen Capture
+
+
+https://user-images.githubusercontent.com/71015892/227738260-08985427-4fef-4a85-b98f-4e57015ba1e9.mov
+
+
 ## Features
 
 - [x] Basic Frontend
