@@ -40,7 +40,7 @@ https://user-images.githubusercontent.com/71015892/227738260-08985427-4fef-4a85-
 
 
 ## Features
-
+- [ ] Add SqLite
 - [x] Basic Frontend
 - [x] Show Files
 - [x] Open Directory
